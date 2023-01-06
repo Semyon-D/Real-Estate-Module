@@ -1,0 +1,25 @@
+import requests
+
+# Set the base URL for the API endpoint
+base_url = " https://api.domain.com.au/v1/properties/_suggest?terms=100+Harris+St%2C+Pyrmont&channel=All "
+
+# Set the parameters for the search query
+params = {
+    "keywords": "Brisbane",
+    "min_price": 300000,
+    "max_price": 500000,
+    "bedrooms": 3
+}
+
+# Make the request to the API
+response = requests.get(base_url, params=params)
+
+# Check the status code of the response
+if response.status_code == 200:
+    # If the request was successful, print the listings
+    listings = response.json()["listings"]
+    for listing in listings:
+        print(f"{listing['price']} - {listing['address']}")
+else:
+    # If the request failed, print an error message
+    print("An error occurred:", response.text)

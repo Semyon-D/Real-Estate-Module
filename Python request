@@ -1,18 +1,29 @@
 import requests
 
 # Set the base URL for the API endpoint
-base_url = " https://api.domain.com.au/v1/properties/_suggest?terms=100+Harris+St%2C+Pyrmont&channel=All "
+base_url = "https://api.domain.com.au/v1/listings/residential/_search"
+
+# Set the beach location as a latitude and longitude
+beach_location = (-33.865143, 151.209900)
 
 # Set the parameters for the search query
 params = {
-    "keywords": "Brisbane",
+    "location": beach_location,
+    "radius": 5,  # Search within a 5 km radius
     "min_price": 300000,
     "max_price": 500000,
-    "bedrooms": 3
+    "bedrooms": 3,
+    "property_types": "house"
+}
+
+# Set the API key and API secret in the request header
+headers = {
+    "api-key": "YOUR_API_KEY_HERE",
+    "api-secret": "YOUR_API_SECRET_HERE"
 }
 
 # Make the request to the API
-response = requests.get(base_url, params=params)
+response = requests.get(base_url, params=params, headers=headers)
 
 # Check the status code of the response
 if response.status_code == 200:
